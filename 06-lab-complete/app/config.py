@@ -18,6 +18,7 @@ class Settings:
 
     # LLM
     openai_api_key: str = field(default_factory=lambda: os.getenv("OPENAI_API_KEY", ""))
+    github_pat: str = field(default_factory=lambda: os.getenv("GITHUB_PAT", ""))
     llm_model: str = field(default_factory=lambda: os.getenv("LLM_MODEL", "gpt-4o-mini"))
 
     # Security
@@ -47,8 +48,11 @@ class Settings:
                 raise ValueError("AGENT_API_KEY must be set in production!")
             if self.jwt_secret == "dev-jwt-secret":
                 raise ValueError("JWT_SECRET must be set in production!")
-        if not self.openai_api_key:
-            logger.warning("OPENAI_API_KEY not set — using mock LLM")
+        
+        # Check for LLM API access
+        if not self.openai_api_key and not self.github_pat:
+            logger.warning("Neither OPENAI_API_KEY nor GITHUB_PAT set — LLM access disabled")
+        
         return self
 
 

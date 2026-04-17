@@ -5,3 +5,13 @@ pyjwt==2.9.0
 python-dotenv==1.0.1
 redis==5.1.0
 psutil==6.0.0
+
+# LangChain + Agent Framework
+langchain==0.1.21
+langchain-core==0.1.52
+langchain-openai==0.1.14
+langgraph==0.0.35
+langchain-community==0.0.38
+
+# Token counting
+tiktoken==0.5.2
